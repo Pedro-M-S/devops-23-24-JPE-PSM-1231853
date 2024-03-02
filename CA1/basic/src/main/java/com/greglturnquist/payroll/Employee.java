@@ -34,15 +34,23 @@ public class Employee {
     private String lastName;
     private String description;
     private String jobTitle;
+    private Integer jobYears;
 
     private Employee() {
     }
 
-    public Employee(String firstName, String lastName, String description, String jobTitle) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.description = description;
-        this.jobTitle = jobTitle;
+    public Employee(String firstName, String lastName,
+                    String description, String jobTitle, Integer jobYears) throws IllegalArgumentException {
+
+        if (validParameters(firstName, lastName, description, jobTitle, jobYears)) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.description = description;
+            this.jobTitle = jobTitle;
+            this.jobYears = jobYears;
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     @Override
@@ -54,13 +62,14 @@ public class Employee {
                 Objects.equals(firstName, employee.firstName) &&
                 Objects.equals(lastName, employee.lastName) &&
                 Objects.equals(description, employee.description) &&
-                Objects.equals(jobTitle, employee.jobTitle);
+                Objects.equals(jobTitle, employee.jobTitle) &&
+                Objects.equals(jobYears, employee.jobYears);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, firstName, lastName, description, jobTitle);
+        return Objects.hash(id, firstName, lastName, description, jobTitle, jobYears);
     }
 
     public Long getId() {
@@ -103,6 +112,14 @@ public class Employee {
         this.jobTitle = jobTitle;
     }
 
+    public Integer getJobYears() {
+        return jobYears;
+    }
+
+    public void setJobYears(Integer jobYears) {
+        this.jobYears = jobYears;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -111,7 +128,23 @@ public class Employee {
                 ", lastName='" + lastName + '\'' +
                 ", description='" + description + '\'' +
                 ", jobTitle='" + jobTitle + '\'' +
+                ", jobYears='" + jobYears + '\'' +
                 '}';
+    }
+
+    private boolean validParameters(String firstName, String lastName,
+                                    String description, String jobTitle, Integer jobYears) {
+
+        return validString(firstName) && validString(lastName)
+                && validString(description) && validString(jobTitle) && validInteger(jobYears);
+    }
+
+    private boolean validString(String str) {
+        return str != null && !str.isEmpty() && !str.trim().isEmpty();
+    }
+
+    private boolean validInteger(Integer i) {
+        return i != null && i >= 0;
     }
 }
 // end::code[]
