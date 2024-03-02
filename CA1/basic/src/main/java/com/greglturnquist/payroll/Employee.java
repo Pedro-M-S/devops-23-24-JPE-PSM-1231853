@@ -148,8 +148,8 @@ public class Employee {
                                     String description, String jobTitle, Integer jobYears, String email) {
 
         return validString(firstName) && validString(lastName)
-                && validString(description) && validString(jobTitle) && validString(email)
-                && validInteger(jobYears);
+                && validString(description) && validString(jobTitle)
+                && validInteger(jobYears) && validEmail(email);
     }
 
     private boolean validString(String str) {
@@ -158,6 +158,10 @@ public class Employee {
 
     private boolean validInteger(Integer i) {
         return i != null && i >= 0;
+    }
+
+    private boolean validEmail(String email) {
+        return email != null && email.contains("@");
     }
 }
 // end::code[]
