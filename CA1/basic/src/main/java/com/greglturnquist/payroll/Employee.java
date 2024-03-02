@@ -35,19 +35,21 @@ public class Employee {
     private String description;
     private String jobTitle;
     private Integer jobYears;
+    private String email;
 
     private Employee() {
     }
 
     public Employee(String firstName, String lastName,
-                    String description, String jobTitle, Integer jobYears) throws IllegalArgumentException {
+                    String description, String jobTitle, Integer jobYears, String email) throws IllegalArgumentException {
 
-        if (validParameters(firstName, lastName, description, jobTitle, jobYears)) {
+        if (validParameters(firstName, lastName, description, jobTitle, jobYears, email)) {
             this.firstName = firstName;
             this.lastName = lastName;
             this.description = description;
             this.jobTitle = jobTitle;
             this.jobYears = jobYears;
+            this.email = email;
         } else {
             throw new IllegalArgumentException();
         }
@@ -63,13 +65,14 @@ public class Employee {
                 Objects.equals(lastName, employee.lastName) &&
                 Objects.equals(description, employee.description) &&
                 Objects.equals(jobTitle, employee.jobTitle) &&
-                Objects.equals(jobYears, employee.jobYears);
+                Objects.equals(jobYears, employee.jobYears) &&
+                Objects.equals(email, employee.email);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, firstName, lastName, description, jobTitle, jobYears);
+        return Objects.hash(id, firstName, lastName, description, jobTitle, jobYears, email);
     }
 
     public Long getId() {
@@ -120,6 +123,14 @@ public class Employee {
         this.jobYears = jobYears;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -129,14 +140,16 @@ public class Employee {
                 ", description='" + description + '\'' +
                 ", jobTitle='" + jobTitle + '\'' +
                 ", jobYears='" + jobYears + '\'' +
+                ", email='" + email + '\'' +
                 '}';
     }
 
     private boolean validParameters(String firstName, String lastName,
-                                    String description, String jobTitle, Integer jobYears) {
+                                    String description, String jobTitle, Integer jobYears, String email) {
 
         return validString(firstName) && validString(lastName)
-                && validString(description) && validString(jobTitle) && validInteger(jobYears);
+                && validString(description) && validString(jobTitle) && validString(email)
+                && validInteger(jobYears);
     }
 
     private boolean validString(String str) {

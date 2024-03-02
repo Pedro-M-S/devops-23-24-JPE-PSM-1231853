@@ -12,6 +12,7 @@ class EmployeeTest {
     String description;
     String jobTitle;
     Integer jobYears;
+    String email;
     Employee employee;
 
     @BeforeEach
@@ -21,7 +22,8 @@ class EmployeeTest {
         description = "An hobbit";
         jobTitle = "Ring bearer";
         jobYears = 3;
-        employee = new Employee(firstName, lastName, description, jobTitle, jobYears);
+        email = "frodo@middleearth.com";
+        employee = new Employee(firstName, lastName, description, jobTitle, jobYears, email);
         employee.setId(1L);
     }
 
@@ -32,7 +34,7 @@ class EmployeeTest {
 
         // Act - Assert
         assertThrows(IllegalArgumentException.class,
-                () -> new Employee(invalidFirstName, lastName, description, jobTitle, jobYears));
+                () -> new Employee(invalidFirstName, lastName, description, jobTitle, jobYears, email));
     }
 
     @Test
@@ -42,7 +44,7 @@ class EmployeeTest {
 
         // Act - Assert
         assertThrows(IllegalArgumentException.class,
-                () -> new Employee(invalidFirstName, lastName, description, jobTitle, jobYears));
+                () -> new Employee(invalidFirstName, lastName, description, jobTitle, jobYears, email));
     }
 
     @Test
@@ -52,7 +54,7 @@ class EmployeeTest {
 
         // Act - Assert
         assertThrows(IllegalArgumentException.class,
-                () -> new Employee(firstName, invalidLastName, description, jobTitle, jobYears));
+                () -> new Employee(firstName, invalidLastName, description, jobTitle, jobYears, email));
     }
 
     @Test
@@ -62,7 +64,7 @@ class EmployeeTest {
 
         // Act - Assert
         assertThrows(IllegalArgumentException.class,
-                () -> new Employee(firstName, invalidFirstName, description, jobTitle, jobYears));
+                () -> new Employee(firstName, invalidFirstName, description, jobTitle, jobYears, email));
     }
 
     @Test
@@ -72,7 +74,7 @@ class EmployeeTest {
 
         // Act - Assert
         assertThrows(IllegalArgumentException.class,
-                () -> new Employee(firstName, lastName, invalidDescription, jobTitle, jobYears));
+                () -> new Employee(firstName, lastName, invalidDescription, jobTitle, jobYears, email));
     }
 
     @Test
@@ -82,7 +84,7 @@ class EmployeeTest {
 
         // Act - Assert
         assertThrows(IllegalArgumentException.class,
-                () -> new Employee(firstName, lastName, invalidDescription, jobTitle, jobYears));
+                () -> new Employee(firstName, lastName, invalidDescription, jobTitle, jobYears, email));
     }
 
     @Test
@@ -92,7 +94,7 @@ class EmployeeTest {
 
         // Act - Assert
         assertThrows(IllegalArgumentException.class,
-                () -> new Employee(firstName, lastName, description, invalidJobTile, jobYears));
+                () -> new Employee(firstName, lastName, description, invalidJobTile, jobYears, email));
     }
 
     @Test
@@ -102,7 +104,7 @@ class EmployeeTest {
 
         // Act - Assert
         assertThrows(IllegalArgumentException.class,
-                () -> new Employee(firstName, lastName, description, invalidJobTitle, jobYears));
+                () -> new Employee(firstName, lastName, description, invalidJobTitle, jobYears, email));
     }
 
     @Test
@@ -112,7 +114,7 @@ class EmployeeTest {
 
         // Act - Assert
         assertThrows(IllegalArgumentException.class,
-                () -> new Employee(firstName, lastName, description, jobTitle, invalidJobYears));
+                () -> new Employee(firstName, lastName, description, jobTitle, invalidJobYears, email));
     }
 
     @Test
@@ -122,7 +124,27 @@ class EmployeeTest {
 
         // Act - Assert
         assertThrows(IllegalArgumentException.class,
-                () -> new Employee(firstName, lastName, description, jobTitle, invalidJobYears));
+                () -> new Employee(firstName, lastName, description, jobTitle, invalidJobYears, email));
+    }
+
+    @Test
+    void testConstructorInvalidEmailNull() {
+        // Arrange
+        String invalidEmail = null;
+
+        // Act - Assert
+        assertThrows(IllegalArgumentException.class,
+                () -> new Employee(firstName, lastName, description, jobTitle, jobYears, invalidEmail));
+    }
+
+    @Test
+    void testConstructorInvalidEmailEmpty() {
+        // Arrange
+        String invalidEmail = " ";
+
+        // Act - Assert
+        assertThrows(IllegalArgumentException.class,
+                () -> new Employee(firstName, lastName, description, jobTitle, jobYears, invalidEmail));
     }
 
     @Test
@@ -204,10 +226,23 @@ class EmployeeTest {
     }
 
     @Test
+    void setGetEmail() {
+        // Arrange
+        String newEmail = "sam@middleearth.com";
+
+        // Act
+        employee.setEmail(newEmail);
+        String result = employee.getEmail();
+
+        // Assert
+        assertEquals(newEmail, result);
+    }
+
+    @Test
     void testToString() {
         // Arrange
         String expected = "Employee{id=1, firstName='Frodo', lastName='Baggins', " +
-                "description='An hobbit', jobTitle='Ring bearer', jobYears='3'}";
+                "description='An hobbit', jobTitle='Ring bearer', jobYears='3', email='frodo@middleearth.com'}";
 
         // Act
         String result = employee.toString();
