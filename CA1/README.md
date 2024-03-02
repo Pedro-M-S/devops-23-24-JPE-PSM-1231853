@@ -105,6 +105,7 @@
 
 
 5. **Tagging and Conclusion:**
+   - The `email-field` branch was merged into the `main` branch.
    - A tag was created `v1.3.0` following the creation of the new feature.
    - git commands used:
       - `git tag -a tagname -m "message"`
@@ -143,6 +144,7 @@
 
 
 5. **Tagging and Conclusion:**
+   - The `fix-invalid-email` branch was merged into the `main` branch.
    - A tag was created `v1.3.1` following the implementation of the bug fix.
    - A final tag `ca1-part2` was created to mark the end of the assignment.
    - git commands used:
