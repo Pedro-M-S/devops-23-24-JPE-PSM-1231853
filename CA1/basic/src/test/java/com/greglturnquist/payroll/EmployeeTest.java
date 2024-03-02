@@ -148,6 +148,18 @@ class EmployeeTest {
     }
 
     @Test
+    void testConstructorInvalidEmailWithAtSign() {
+        // Arrange
+        String invalidEmail = "frodo.middleearth.com";
+
+        // Act - Assert
+        assertThrows(IllegalArgumentException.class,
+                () -> new Employee(firstName, lastName, description, jobTitle, jobYears, invalidEmail));
+    }
+
+
+
+    @Test
     void setGetId() {
         // Arrange
         Long newId = 5L;
