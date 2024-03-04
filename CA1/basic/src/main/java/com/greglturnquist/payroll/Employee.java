@@ -88,7 +88,8 @@ public class Employee {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        if (validString(firstName)) this.firstName = firstName;
+        else throw new IllegalArgumentException();
     }
 
     public String getLastName() {
@@ -96,7 +97,8 @@ public class Employee {
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        if (validString(lastName)) this.lastName = lastName;
+        else throw new IllegalArgumentException();
     }
 
     public String getDescription() {
@@ -104,7 +106,8 @@ public class Employee {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        if (validString(description)) this.description = description;
+        else throw new IllegalArgumentException();
     }
 
     public String getJobTitle() {
@@ -112,7 +115,8 @@ public class Employee {
     }
 
     public void setJobTitle(String jobTitle) {
-        this.jobTitle = jobTitle;
+        if (validString(jobTitle)) this.jobTitle = jobTitle;
+        else throw new IllegalArgumentException();
     }
 
     public Integer getJobYears() {
@@ -120,7 +124,8 @@ public class Employee {
     }
 
     public void setJobYears(Integer jobYears) {
-        this.jobYears = jobYears;
+        if (validInteger(jobYears)) this.jobYears = jobYears;
+        else throw new IllegalArgumentException();
     }
 
     public String getEmail() {
@@ -128,7 +133,8 @@ public class Employee {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        if (validEmail(email)) this.email = email;
+        else throw new IllegalArgumentException();
     }
 
     @Override

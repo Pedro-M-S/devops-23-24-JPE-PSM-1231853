@@ -20,7 +20,7 @@ class EmployeeTest {
         firstName = "Frodo";
         lastName = "Baggins";
         description = "An hobbit";
-        jobTitle = "Ring bearer";
+        jobTitle = "Ring Bearer";
         jobYears = 3;
         email = "frodo@middleearth.com";
         employee = new Employee(firstName, lastName, description, jobTitle, jobYears, email);
@@ -148,7 +148,7 @@ class EmployeeTest {
     }
 
     @Test
-    void testConstructorInvalidEmailWithAtSign() {
+    void testConstructorInvalidEmailWithoutAtSign() {
         // Arrange
         String invalidEmail = "frodo.middleearth.com";
 
@@ -156,8 +156,6 @@ class EmployeeTest {
         assertThrows(IllegalArgumentException.class,
                 () -> new Employee(firstName, lastName, description, jobTitle, jobYears, invalidEmail));
     }
-
-
 
     @Test
     void setGetId() {
@@ -254,7 +252,7 @@ class EmployeeTest {
     void testToString() {
         // Arrange
         String expected = "Employee{id=1, firstName='Frodo', lastName='Baggins', " +
-                "description='An hobbit', jobTitle='Ring bearer', jobYears='3', email='frodo@middleearth.com'}";
+                "description='An hobbit', jobTitle='Ring Bearer', jobYears='3', email='frodo@middleearth.com'}";
 
         // Act
         String result = employee.toString();
