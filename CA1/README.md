@@ -7,6 +7,7 @@
 1. [Part 1 - Technical Report](#part-1---technical-report)
 2. [Part 2A - Technical Report](#part-2A---technical-report)
 3. [Part 2B - Technical Report](#part-2B---technical-report)
+4. [Analysis Report - Alternative Solution (SVN)](#analysis-report---alternative-solution)
 
 ## Part 1 - Technical Report
 
@@ -150,3 +151,74 @@
    - git commands used:
       - `git tag -a tagname -m "message"`
       - `git push origin tagname`
+
+## Analysis Report - Alternative Solution
+
+#### Analysis of Subversion (SVN) as an alternative to Git
+
+### Introduction
+
+Subversion, often abbreviated as SVN, is a version control system designed to manage and track changes to files and directories over time. It is particularly useful for software development projects but can be applied to any scenario where versioning and collaboration are essential.
+
+1. **Version Control:**
+    - Subversion helps teams `manage and control different versions` of their project's source code and related files. It tracks changes made by multiple developers, providing a history of modifications.
+
+2. **Repository:**
+    - Subversion uses a `centralized repository` to store the project's files and their versions. This repository serves as a `central hub` where team members can commit changes and retrieve the latest updates.
+
+3. **Checkouts and Working Copies:**
+    - Developers typically perform a `checkout` to create a `local working copy of the repository`. This working copy allows them to make changes to the files, which can later be committed back to the `central repository`.
+
+4. **Branching and Merging:**
+    - Subversion supports `branching and merging`, allowing developers to work on different features or bug fixes in isolation and later merge those changes back into the main codebase.
+
+5. **Atomic Commits:**
+    - Commits in Subversion are `atomic`, meaning that they are treated as a `single`, `indivisible unit`. This ensures that changes are either `fully applied` or `not applied` at all, maintaining the integrity of the codebase.
+
+6. **History and Revisions:**
+    - Subversion keeps a `detailed history of changes` made to files over time. Each commit is assigned a `unique revision number`, and users can easily trace the evolution of the codebase.
+
+While Subversion has been widely used in the past, more modern distributed version control systems like Git have gained popularity due to their flexibility, speed, and ability to work offline.
+
+### Comparison between Git and Subversion (SVN)
+
+Git and Subversion are both widely used version control systems designed to manage and track changes in software development projects. Despite sharing the overarching goal of facilitating collaboration and versioning, they differ significantly in their underlying architectures and workflows.
+
+
+1. **Distributed vs. Centralized:**
+    - `Git:` It is a distributed version control system. Each developer has a complete copy of the entire repository, including the history. This allows for offline work, local branching, and faster operations.
+    - `SVN:` It is a centralized version control system. The repository is stored on a central server, and developers typically work with a local working copy. Commits are made directly to the central repository.
+
+
+2. **Branching and Merging:**
+    - `Git:` Branching and merging are integral parts of Git. Creating branches is fast and lightweight, encouraging developers to use branches for various purposes such as feature development, bug fixes, or experiments.
+    - `SVN:` While Subversion supports branching and merging, it tends to be more heavyweight compared to Git. Branches are more like directories, and merging can sometimes be more complex.
+
+
+3. **Commit and Atomicity:**
+    - `Git:` Commits in Git are atomic and local. Developers can commit changes to their local repository and later push those changes to the central repository.
+    - `SVN:` Commits in SVN are atomic but are made directly to the central repository. This means that changes are immediately visible to others, which might be a consideration in some workflows.
+
+
+4. **History and Revisions:**
+    - `Git:` Git maintains a full history of the entire repository on each developer's machine. This enables operations like branching, merging, and viewing history to be very fast and efficient.
+    - `SVN:` The history in SVN is centralized in the repository. Accessing history may involve communication with the central server, which could result in slower performance for certain operations.
+
+
+5. **Speed**
+    - `Git:` Git is generally faster, especially for operations like branching, merging, and viewing history, thanks to its distributed nature and the way it handles data.
+    - `SVN:` Subversion operations might be slower, particularly when dealing with large repositories or complex branching and merging scenarios.
+
+
+6. **Offline Work:**
+    - `Git:` Developers can work offline since they have a complete copy of the repository on their local machines. They can commit changes locally and later push them to the central repository.
+    - `SVN:` Working offline in Subversion is more challenging, as many operations require communication with the central server.
+
+
+### Conclusion
+
+In evaluating Subversion as an alternative to Git, it is evident that both version control systems serve the fundamental purpose of managing and tracking changes in software development projects. Subversion, with its centralized approach, has been a reliable choice for version control over the years, providing a structured and traceable environment for collaborative development.
+
+However, the comparison with Git reveals that the latter's distributed nature brings about notable advantages in terms of speed, flexibility, and offline capabilities. Git's ability to handle branching and merging seamlessly, coupled with its efficient local operations, has propelled it to the forefront of version control systems, especially in modern software development workflows.
+
+While Subversion remains a valid choice for certain scenarios, such as centralized workflows or projects with specific constraints, Git's widespread adoption and the industry's evolving needs make it the preferred choice for many development teams. The decentralized and versatile nature of Git aligns well with the demands of today's fast-paced, collaborative software development environments.
