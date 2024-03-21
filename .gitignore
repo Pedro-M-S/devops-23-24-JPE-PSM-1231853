@@ -44,6 +44,10 @@
 # *.iml
 # *.ipr
 
+# Gradle
+**/.gradle/
+**/build/
+
 # CMake
 cmake-build-*/
 
