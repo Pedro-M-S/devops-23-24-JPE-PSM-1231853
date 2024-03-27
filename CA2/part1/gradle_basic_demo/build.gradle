@@ -11,7 +11,6 @@ plugins {
     id 'application'
 }
 
-
 repositories {
     mavenCentral()
 }
@@ -27,9 +26,8 @@ dependencies {
     implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.11.2'
 
     // Use JUnit test framework
-    testImplementation(group: 'junit', name: 'junit', version: '4.12')
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
 }
- 
 
 // Define the main class for the application
 mainClassName = 'basic_demo.App'
@@ -43,35 +41,32 @@ jar {
         attributes "Main-Class": "basic_demo.App"
     }
 
-   from {
+    from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 
-
-task runClient(type:JavaExec, dependsOn: classes){
+task runClient(type: JavaExec, dependsOn: classes) {
     group = "DevOps"
     description = "Launches a chat client that connects to a server on localhost:59001 "
-  
-    classpath = sourceSets.main.runtimeClasspath
 
+    classpath = sourceSets.main.runtimeClasspath
     mainClass = 'basic_demo.ChatClientApp'
 
     args 'localhost', '59001'
 }
 
-task runServer(type:JavaExec, dependsOn: classes){
+task runServer(type: JavaExec, dependsOn: classes) {
     group = "DevOps"
     description = "Launches a chat server on localhost:59001 "
 
     classpath = sourceSets.main.runtimeClasspath
-
     mainClass = 'basic_demo.ChatServerApp'
 
     args '59001'
 }
 
-task backupSource(type: Copy){
+task backupSource(type: Copy) {
     group = "DevOps"
     description = "Copies the source files to a backup directory"
 
@@ -81,9 +76,9 @@ task backupSource(type: Copy){
 
 task backupZip(type: Zip) {
     group = "DevOps"
-    description = "Copies the source files to a backup directory"
+    description = "Copies and compresses the source files to a backup directory"
 
     from 'src'
     archiveFileName = "sources.zip"
-    destinationDir = file("backup_zip")
+    destinationDirectory = file("backup_zip")
 }
