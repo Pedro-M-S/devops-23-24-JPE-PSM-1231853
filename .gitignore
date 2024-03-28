@@ -6,6 +6,7 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 # Excluding unnecessary files
+**/CA2/part1/gradle_basic_demo/backup/**
 **/CA1/basic/src/main/resources/static/built/**
 **/example_application/**
 **/week1/**
