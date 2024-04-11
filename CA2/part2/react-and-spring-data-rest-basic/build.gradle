@@ -32,6 +32,11 @@ frontend {
     checkScript = "run check"
 }
 
-tasks.named('test') {
-    useJUnitPlatform()
+task copyJar(type: Copy) {
+    from 'build/libs'
+    into 'dist'
+    include '*.jar'
 }
+
+// Make the 'copyJar' task depend on the 'bootJar' task to ensure the JAR file is generated before copying
+copyJar.dependsOn bootJar

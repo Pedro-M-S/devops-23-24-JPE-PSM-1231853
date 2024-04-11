@@ -9,6 +9,8 @@
 **/CA2/part1/gradle_basic_demo/backup/**
 **/src/main/resources/static/built/**
 **/example_application/**
+**/node
+**/.frontend-gradle-plugin
 
 
 # User-specific stuff
@@ -114,7 +116,7 @@ fabric.properties
 .mtj.tmp/
 
 # Package Files #
-*.jar
+**.jar
 *.war
 *.nar
 *.ear
