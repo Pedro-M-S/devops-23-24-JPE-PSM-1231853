@@ -37,6 +37,11 @@ task copyJar(type: Copy) {
     into 'dist'
     include '*.jar'
 }
-
 // Make the 'copyJar' task depend on the 'bootJar' task to ensure the JAR file is generated before copying
 copyJar.dependsOn bootJar
+
+task deleteWebpackFiles(type: Delete) {
+    delete 'src/main/resources/static/built/'
+}
+// Make the 'clean' task depend on the 'deleteWebpackFiles' task to ensure the webpack files are deleted before cleaning
+clean.dependsOn deleteWebpackFiles
