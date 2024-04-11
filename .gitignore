@@ -7,9 +7,10 @@
 
 # Excluding unnecessary files
 **/CA2/part1/gradle_basic_demo/backup/**
-**/CA1/basic/src/main/resources/static/built/**
+**/src/main/resources/static/built/**
 **/example_application/**
-**/week1/**
+**/node
+**/.frontend-gradle-plugin
 
 
 # User-specific stuff
@@ -115,7 +116,7 @@ fabric.properties
 .mtj.tmp/
 
 # Package Files #
-*.jar
+**.jar
 *.war
 *.nar
 *.ear
@@ -284,5 +285,38 @@ dist
 
 # SvelteKit build / generate output
 .svelte-kit
+
+**/HELP.md
+**/.gradle
+**/!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+**/.apt_generated
+**/.classpath
+**/.factorypath
+**/.project
+**/.settings
+**/.springBeans
+**/.sts4-cache
+**/bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+**/.idea
+**/*.iws
+**/*.iml
+**/*.ipr
+**/out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+**//nbproject/private/
+
+### VS Code ###
+**/.vscode/
 
 # End of https://www.toptal.com/developers/gitignore/api/java,maven,intellij+all,node
