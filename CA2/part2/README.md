@@ -103,69 +103,140 @@ clean.dependsOn deleteWebpackFiles
 
 ### Analysis of alternative to Gradle (Maven)
 
-#### Analysis
+#### Analysis and Implementation
 
 1. **Comparison with Gradle regarding build automation features:**
 
-   - **Dependency Management:** Maven and Gradle both offer robust dependency management capabilities. 
-   Maven uses XML-based configuration (**pom.xml**), while Gradle uses Groovy or Kotlin DSL. Gradle's DSL might be considered more 
-   expressive and flexible, allowing for more complex dependency management scenarios.
+    - **Dependency Management:** Maven and Gradle both offer robust dependency management capabilities.
+      Maven uses XML-based configuration (**pom.xml**), while Gradle uses Groovy or Kotlin DSL. Gradle's DSL might be
+      considered more
+      expressive and flexible, allowing for more complex dependency management scenarios.
 
-   - **Plugin Ecosystem:** Both Maven and Gradle have extensive plugin ecosystems. Maven plugins are typically configured within the **pom.xml** file, 
-   while Gradle plugins are applied within the build script. Gradle's plugin system is often praised for its flexibility and ease of 
-   use, allowing developers to easily extend build functionality.
+    - **Plugin Ecosystem:** Both Maven and Gradle have extensive plugin ecosystems. Maven plugins are typically
+      configured within the **pom.xml** file,
+      while Gradle plugins are applied within the build script. Gradle's plugin system is often praised for its
+      flexibility and ease of
+      use, allowing developers to easily extend build functionality.
 
-   - **Task Customization:** Maven's build lifecycle is more rigid compared to Gradle's task-based model. 
-   While Maven does offer some customization through plugin configuration, Gradle provides finer-grained control over tasks and their 
-   dependencies, making it more flexible for complex build scenarios.
+    - **Task Customization:** Maven's build lifecycle is more rigid compared to Gradle's task-based model.
+      While Maven does offer some customization through plugin configuration, Gradle provides finer-grained control over
+      tasks and their
+      dependencies, making it more flexible for complex build scenarios.
 
-   - **Community and Support:** Maven has been around longer than Gradle and has a large, mature community. It's widely
-   adopted and well-documented. Gradle, while newer, has gained significant traction in recent years, particularly in the 
-   Android development community. Both have active support communities and frequent updates.
+    - **Community and Support:** Maven has been around longer than Gradle and has a large, mature community. It's widely
+      adopted and well-documented. Gradle, while newer, has gained significant traction in recent years, particularly in
+      the
+      Android development community. Both have active support communities and frequent updates.
 
 2. **How Maven could be used to solve the same goals:**
 
    To achieve the same goals as the assignment using Maven, we would:
 
-   - **Project Setup:** Create a Maven project by generating a **pom.xml** file with the necessary configurations, 
-   including project metadata, dependencies, and plugins.
+    - **Project Setup:** Create a Maven project by generating a **pom.xml** file with the necessary configurations,
+      including project metadata, dependencies, and plugins.
 
-   - **Dependency Management:** Define project dependencies in the **pom.xml** file, specifying the required libraries 
-   and their versions. Maven will automatically download and manage these dependencies.
+    - **Dependency Management:** Define project dependencies in the **pom.xml** file, specifying the required libraries
+      and their versions. Maven will automatically download and manage these dependencies.
 
-   - **Build Automation:** Define build phases and goals within the **pom.xml** file to specify the tasks to be executed during 
-   the build process. Maven's build lifecycle consists of phases like compile, test, package, install, and deploy.
+    - **Build Automation:** Define build phases and goals within the **pom.xml** file to specify the tasks to be
+      executed during
+      the build process. Maven's build lifecycle consists of phases like compile, test, package, install, and deploy.
 
-   - **Customization:** Extend Maven's functionality by incorporating custom plugins. Maven plugins can be developed using Java and 
-   configured within the **pom.xml** file to perform specific tasks or integrate with external tools.
+    - **Customization:** Extend Maven's functionality by incorporating custom plugins. Maven plugins can be developed
+      using Java and
+      configured within the **pom.xml** file to perform specific tasks or integrate with external tools.
 
-   
+
 3. **Implementing the alternative design with Maven:**
 
    To implement the alternative design using Maven, you would follow these steps:
 
-   - **Project Setup:** Create a Maven project structure and initialize a **pom.xml** file with project metadata.
+    - **Project Setup:** Create a Maven project structure and initialize a **pom.xml** file with project metadata.
 
-   - **Dependency Management:** Define dependencies for the project, including any required libraries or external components.
+    - **Dependency Management:** Define dependencies for the project, including any required libraries or external
+      components.
 
-   - **Plugin Integration:** Utilize existing Maven plugins or develop custom plugins to extend the build process as needed. 
-   Plugins can be configured in the **pom.xml** file to execute tasks such as compiling code, running tests, packaging artifacts, and deploying applications.
+    - **Plugin Integration:** Utilize existing Maven plugins or develop custom plugins to extend the build process as
+      needed.
+      Plugins can be configured in the **pom.xml** file to execute tasks such as compiling code, running tests,
+      packaging artifacts, and deploying applications.
 
-   - **Customization:** Customize the build process by configuring plugins and defining build goals in the **pom.xml** file. Maven's lifecycle 
-   and plugin architecture provide flexibility for extending functionality to meet specific requirements.
+    - **Customization:** Customize the build process by configuring plugins and defining build goals in the **pom.xml**
+      file. Maven's lifecycle
+      and plugin architecture provide flexibility for extending functionality to meet specific requirements.
 
-In summary, while Maven and Gradle share many similarities in terms of build automation, they differ in their approach to project configuration, 
-dependency management, and build customization. Maven's XML-based configuration and predefined build lifecycle make it a reliable choice for many 
-projects, although Gradle's flexibility and extensibility may offer advantages in more complex build scenarios. Ultimately, the choice between Maven 
-and Gradle depends on factors such as project requirements, developer preferences, and existing ecosystem considerations.
+
+      Task to Copy Generated Jar:
+
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-antrun-plugin</artifactId>
+    <version>3.0.0</version>
+    <executions>
+        <execution>
+            <id>copy-jar</id>
+            <phase>none</phase>
+            <goals>
+                <goal>run</goal>
+            </goals>
+            <configuration>
+                <target>
+                    <mkdir dir="${project.basedir}/dist"/>
+                    <copy file="${project.build.directory}/${project.build.finalName}.jar"
+                          todir="${project.basedir}/dist"/>
+                </target>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+```
+
+![Copy Jar](readme-images/copy-jar.png)
+
+      Task to Delete Files Generated by Webpack:
+
+```xml
+<plugin>
+   <artifactId>maven-clean-plugin</artifactId>
+   <version>3.1.0</version>
+   <configuration>
+      <filesets>
+         <fileset>
+            <directory>src/main/resources/static/built</directory>
+            <includes>
+               <include>**/*</include>
+            </includes>
+         </fileset>
+      </filesets>
+   </configuration>
+</plugin>
+```
+
+![Copy Jar](readme-images/clean.png)
+
+In summary, while Maven and Gradle share many similarities in terms of build automation, they differ in their approach
+to project configuration,
+dependency management, and build customization. Maven's XML-based configuration and predefined build lifecycle make it a
+reliable choice for many
+projects, although Gradle's flexibility and extensibility may offer advantages in more complex build scenarios.
+Ultimately, the choice between Maven
+and Gradle depends on factors such as project requirements, developer preferences, and existing ecosystem
+considerations.
 
 ### Conclusion
 
-In conclusion, this assignment has offered a comprehensive exploration of Gradle's capabilities as a powerful build automation tool in the 
-context of a basic demo application. By delving into the Gradle project structure and unraveling its core elements such as build scripts, tasks, 
-and plugins, we have gained valuable insights into how Gradle simplifies the build, test, and deployment workflows. Through practical demonstrations, 
-we showcased the flexibility of Gradle by seamlessly integrating frontend tasks, managing dependencies, and customizing build processes with ease.
+In conclusion, this assignment has offered a comprehensive exploration of Gradle's capabilities as a powerful build
+automation tool in the
+context of a basic demo application. By delving into the Gradle project structure and unraveling its core elements such
+as build scripts, tasks,
+and plugins, we have gained valuable insights into how Gradle simplifies the build, test, and deployment workflows.
+Through practical demonstrations,
+we showcased the flexibility of Gradle by seamlessly integrating frontend tasks, managing dependencies, and customizing
+build processes with ease.
 
-Furthermore, by comparing Gradle with its counterpart Maven, we highlighted the strengths and nuances of each build automation tool. While Maven 
-boasts a mature ecosystem and a structured build lifecycle, Gradle excels in its flexibility, expressiveness, and task-based approach, making it 
+Furthermore, by comparing Gradle with its counterpart Maven, we highlighted the strengths and nuances of each build
+automation tool. While Maven
+boasts a mature ecosystem and a structured build lifecycle, Gradle excels in its flexibility, expressiveness, and
+task-based approach, making it
 an attractive choice for modern software projects.
