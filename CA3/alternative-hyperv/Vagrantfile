@@ -2,6 +2,14 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/bionic64"
   config.ssh.insert_key = false
 
+  # Specify Hyper-V as the provider for each VM
+  config.vm.provider "hyperv" do |h|
+    h.cpus = 2
+    h.memory = 2048
+    # Use linked clones to speed up VM creation
+    h.linked_clone = true
+  end
+
   # This provision is common for both VMs
   config.vm.provision "shell", inline: <<-SHELL
     sudo apt-get update -y
@@ -32,11 +40,6 @@ Vagrant.configure("2") do |config|
     db.vm.provision "shell", :run => 'always', inline: <<-SHELL
       java -cp ./h2*.jar org.h2.tools.Server -web -webAllowOthers -tcp -tcpAllowOthers -ifNotExists > ~/out.txt &
     SHELL
-
-    # Rename the VirtualBox VM
-    db.vm.provider "virtualbox" do |v|
-      v.name = "db_h2_database"
-    end
   end
 
   #============
@@ -45,11 +48,6 @@ Vagrant.configure("2") do |config|
     web.vm.box = "ubuntu/bionic64"
     web.vm.hostname = "web"
     web.vm.network "private_network", ip: "192.168.56.10"
-
-    # We set more ram memory for this VM
-    web.vm.provider "virtualbox" do |v|
-      v.memory = 1024
-    end
 
     # We want to access tomcat from the host using port 8080
     web.vm.network "forwarded_port", guest: 8080, host: 8080
@@ -79,10 +77,5 @@ Vagrant.configure("2") do |config|
       # To deploy the war file to tomcat10 do the following command:
       sudo cp ./build/libs/react-and-spring-data-rest-basic-0.0.1-SNAPSHOT.war ~/apache-tomcat-10*/webapps/
     SHELL
-
-    # Rename the VirtualBox VM
-    web.vm.provider "virtualbox" do |v|
-      v.name = "web_tomcat10_server"
-    end
   end
 end

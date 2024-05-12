@@ -7,7 +7,7 @@
     - [Updating Basic Gradle Project](#updating-basic-gradle-project)
     - [Updating Vagrant File](#updating-vagrant-file)
     - [Testing Vagrant File](#testing-vagrant-file)
-    - [Alternative Solution to Virtual Box](#alternative-solution-to-virtual-box)
+    - [Alternative Solution to Virtual Box (Hyper-V)](#alternative-solution-to-virtual-box-hyper-v)
     - [Conclusion](#conclusion)
 
 ## Technical Report
@@ -17,7 +17,7 @@
 1. **Vagrant:**
     - Vagrant is a tool for building and managing virtual machine environments in a single workflow.
     - It provides easy-to-use and consistent development environments that can be shared across different machines.
-    - Vagrant uses a configuration file called Vagrantfile to define the settings for the virtual machine.
+    - Vagrant uses a configuration file called Vagrantfile to define the settings for the virtual machines.
 
 
 2. **Vagrantfile:**
@@ -108,7 +108,7 @@ componentDidMount()
 ```
 
 - Finally, updated the application.properties file to include the necessary configuration settings for connecting to
-  an H2 database server.
+  the defined H2 database server.
 
 ```properties
 spring.data.rest.base-path=/api
@@ -159,7 +159,7 @@ spring.h2.console.settings.web-allow-others=true
     SHELL
 ```
 
-- Updated the configuration settings for the Tomcat web server virtual machine to use Tomcat 10(instead of 9) in
+- Updated the configuration settings for the Tomcat web server virtual machine to use Tomcat 10 (instead of 9) in
   order to
   correctly
   work with Spring-Boot 3.2.4.
@@ -225,6 +225,52 @@ spring.h2.console.settings.web-allow-others=true
 ![Localhost](readme-images/localhost.png)
 ![Vagrant Halt](readme-images/vagrant-halt.png)
 
+### Alternative Solution to Virtual Box (Hyper-V)
+
+#### Analysis and Implementation
+
+1. **Analysis:**
+
+- As an alternative to using Virtual Box, Vagrant can be used with other providers such as Hyper-V.
+- Hyper-V is a native hypervisor that can be used to create and manage virtual machines on Windows. It provides a 
+  lightweight and efficient way to run virtual machines on Windows.
+- In order to use Hyper-V with Vagrant, the Vagrantfile needed to be updated to use the Hyper-V provider.
+
+
+2. **Implementation:**
+
+- In order to use Hyper-V as the provider a plugin is needed to be installed:
+```bash
+vagrant plugin install vagrant-hyperv
+```
+
+- In order to run the Vagrantfile with Hyper-V as the provider, the following command was used:
+```bash
+vagrant up --provider=hyperv
+```
+
+- The Vagrantfile was updated to use the Hyper-V provider
+- First removed everything related to Virtual Box and then added the Hyper-V provider configuration settings below:
+
+
+- Both machines were configured with more memory and CPU resources to improve performance and linked clones was used
+  to speed up VM creation.
+- Linked clones is a feature of Hyper-V that allows you to create a new virtual machine that shares the same virtual
+  hard disk as an existing virtual machine.
+
+```ruby
+# Specify Hyper-V as the provider for each VM
+  config.vm.provider "hyperv" do |h|
+    h.cpus = 2
+    h.memory = 2048
+    # Use linked clones to speed up VM creation
+    h.linked_clone = true
+  end
+  ```
+
+![Hyper-V](readme-images/hv.png)
+![Hyper-V Web](readme-images/hv-web.png)
+![Hyper-V DB](readme-images/hv-db.png)
 ### Conclusion
 
 In conclusion, the Vagrantfile was successfully updated to work with the Basic Gradle Project from CA2: Part2.
@@ -232,3 +278,7 @@ The project was updated to include the necessary dependencies for connecting to 
 deployed to a Tomcat web server.
 The Vagrantfile was tested using several commands to validate and start the virtual machines.
 The virtual machines were successfully started, and the Basic Gradle Project was deployed to the Tomcat web server.
+
+Additionally, an alternative solution to using Virtual Box was explored by using Hyper-V as the provider for Vagrant.
+The Vagrantfile was updated to use the Hyper-V provider, and the virtual machines were successfully started using
+Hyper-V.
