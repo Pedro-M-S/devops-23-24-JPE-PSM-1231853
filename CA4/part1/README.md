@@ -50,6 +50,7 @@ community, as well as private repositories for organizations.
     - Create a Multi-Stage Dockerfile for the Gradle Basic Demo project from CA2.
     - The Dockerfile will use a multi-stage build to compile the project in one stage and run the compiled 
       application in another stage.
+    - Use a base image with the Gradle version of the project and JDK to build the project.
     - Expose the port used by the application to allow external access.
     - Define the entry point for the container to run the chat server application when the container starts.
 
