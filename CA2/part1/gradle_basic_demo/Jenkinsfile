@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checking out...'
+                git branch: 'main', credentialsId: 'jenkins', url: 'https://github.com/Pedro-M-S/devops-23-24-JPE-PSM-1231853.git'
+            }
+        }
+        stage('Assemble') {
+            steps {
+                echo 'Assembling...'
+                sh 'chmod +x gradlew'
+                sh './gradlew clean assemble'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+                sh './gradlew test'
+                junit 'build/test-results/test/*.xml'
+            }
+        }
+        stage('Archive') {
+            steps {
+                echo 'Archiving...'
+                archiveArtifacts 'build/distributions/*'
+            }
+        }
+    }
+}
