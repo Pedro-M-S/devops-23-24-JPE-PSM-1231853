@@ -368,4 +368,8 @@ EXPOSE 8080
 
 In conclusion, Jenkins is a powerful automation server that enables teams to implement Continuous Integration and Continuous
 Delivery pipelines for their software projects. By defining build processes as code using Jenkinsfiles, teams can version
-control and automate the entire software development lifecycle, from building and testing to deployment and monitoring.
+control and automate the entire software development lifecycle, from building and testing to deployment and monitoring. In
+this CA5, we demonstrated how to create Jenkins pipelines for two Gradle projects, Gradle-Basic-Demo and Gradle-React-Spring-Data-Rest-Basic,
+and automate the build, test, and deployment processes for these projects. We also explored how to configure Jenkins to run
+in a Docker container and build Docker images as part of the pipeline. By leveraging Jenkins and Docker, teams can streamline
+their development workflows, improve collaboration, and deliver high-quality software products more efficiently.
